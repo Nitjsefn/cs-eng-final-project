@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfs7y6d1kwtup"]
+
+[ext_resource type="PackedScene" uid="uid://b70sy3js3grhm" path="res://scenes/world.tscn" id="1_78s5d"]
+[ext_resource type="Script" uid="uid://d10rd6mncjpy5" path="res://scripts/GameRoot.cs" id="1_ni5ms"]
+
+[node name="GameRoot" type="Node"]
+process_mode = 3
+script = ExtResource("1_ni5ms")
+
+[node name="World" parent="." instance=ExtResource("1_78s5d")]
+process_mode = 1
