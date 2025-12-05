@@ -25,7 +25,7 @@ public partial class Player : CharacterBody3D
 
 	public override void _Process(double delta)
 	{
-        if(this.IsOnFloor() || this.IsOnWall())
+        if(this.IsOnFloor())
         {
             Vector2 horizontalVelocity = new Vector2(this.Velocity.X, this.Velocity.Z);
             bool motionPressed = false;
@@ -61,12 +61,11 @@ public partial class Player : CharacterBody3D
                     horizontalVelocity -= slowingVelocity;
             }
             this.Velocity = new Vector3(horizontalVelocity.X, this.Velocity.Y, horizontalVelocity.Y);
-        }
 
-        if(Input.IsActionPressed("jump"))
-        {
-            if(this.IsOnFloor())
+            if(Input.IsActionPressed("jump"))
+            {
                 this.Velocity += _floorJumpVelocity;
+            }
         }
 
         this.Velocity += _gravityAcceleration * (float)delta;
