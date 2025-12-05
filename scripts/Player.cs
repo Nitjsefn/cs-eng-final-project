@@ -8,6 +8,8 @@ public partial class Player : CharacterBody3D
     private float _maxAcceleratedSpeed = 10;
     private float _maxAcceleratedSpeedSquared;
     private float _deacceleration = 15;
+    private float _maxUpCameraAngle = float.DegreesToRadians(50);
+    private float _maxDownCameraAngle = float.DegreesToRadians(-50);
     private Camera3D _camera;
 
 
@@ -70,6 +72,10 @@ public partial class Player : CharacterBody3D
         {
             float mouseCameraRotationFactor = (float)0.001;
             _camera.Rotation += new Vector3(-mouseMotionEvent.Relative.Y, 0, 0) * mouseCameraRotationFactor;
+            if(_camera.Rotation.X > _maxUpCameraAngle)
+                _camera.Rotation = new Vector3(_maxUpCameraAngle, 0, 0);
+            else if(_camera.Rotation.X < _maxDownCameraAngle)
+                _camera.Rotation = new Vector3(_maxDownCameraAngle, 0, 0);
             this.Rotation += new Vector3(0, -mouseMotionEvent.Relative.X, 0) * mouseCameraRotationFactor;
         }
     }
