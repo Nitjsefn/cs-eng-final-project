@@ -28,22 +28,22 @@ public partial class Player : CharacterBody3D
             if(Input.IsActionPressed("forward"))
             {
                 motionPressed = true;
-                horizontalVelocity += Vector2.Up.Rotated(-_camera.Rotation.Y) * _acceleration * (float)delta;
+                horizontalVelocity += Vector2.Up.Rotated(-this.Rotation.Y) * _acceleration * (float)delta;
             }
             if(Input.IsActionPressed("back"))
             {
                 motionPressed = true;
-                horizontalVelocity += Vector2.Down.Rotated(-_camera.Rotation.Y) * _acceleration * (float)delta;
+                horizontalVelocity += Vector2.Down.Rotated(-this.Rotation.Y) * _acceleration * (float)delta;
             }
             if(Input.IsActionPressed("left"))
             {
                 motionPressed = true;
-                horizontalVelocity += Vector2.Left.Rotated(-_camera.Rotation.Y) * _acceleration * (float)delta;
+                horizontalVelocity += Vector2.Left.Rotated(-this.Rotation.Y) * _acceleration * (float)delta;
             }
             if(Input.IsActionPressed("right"))
             {
                 motionPressed = true;
-                horizontalVelocity += Vector2.Right.Rotated(-_camera.Rotation.Y) * _acceleration * (float)delta;
+                horizontalVelocity += Vector2.Right.Rotated(-this.Rotation.Y) * _acceleration * (float)delta;
             }
             if(horizontalVelocity.LengthSquared() >= _maxAcceleratedSpeedSquared)
                 horizontalVelocity = horizontalVelocity.Normalized() * _maxAcceleratedSpeed;
@@ -68,7 +68,9 @@ public partial class Player : CharacterBody3D
     {
         if(@event is InputEventMouseMotion mouseMotionEvent)
         {
-            _camera.Rotation += new Vector3(-mouseMotionEvent.Relative.Y, -mouseMotionEvent.Relative.X, 0) * (float)0.001;
+            float mouseCameraRotationFactor = (float)0.001;
+            _camera.Rotation += new Vector3(-mouseMotionEvent.Relative.Y, 0, 0) * mouseCameraRotationFactor;
+            this.Rotation += new Vector3(0, -mouseMotionEvent.Relative.X, 0) * mouseCameraRotationFactor;
         }
     }
 }
