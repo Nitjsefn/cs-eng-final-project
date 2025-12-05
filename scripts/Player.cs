@@ -11,6 +11,7 @@ public partial class Player : CharacterBody3D
     private float _maxUpCameraAngle = float.DegreesToRadians(50);
     private float _maxDownCameraAngle = float.DegreesToRadians(-50);
     private float _mouseCameraRotationFactor = (float)0.001;
+    private Vector3 _floorJumpVelocity = new Vector3(0, 15, 0);
     private Camera3D _camera;
 
 
@@ -60,6 +61,12 @@ public partial class Player : CharacterBody3D
                     horizontalVelocity -= slowingVelocity;
             }
             this.Velocity = new Vector3(horizontalVelocity.X, this.Velocity.Y, horizontalVelocity.Y);
+        }
+
+        if(Input.IsActionPressed("jump"))
+        {
+            if(this.IsOnFloor())
+                this.Velocity += _floorJumpVelocity;
         }
 
         this.Velocity += _gravityAcceleration * (float)delta;
