@@ -46,7 +46,7 @@ public partial class Player : CharacterBody3D
                 horizontalVelocity += Vector2.Right.Rotated(-_camera.Rotation.Y) * _acceleration * (float)delta;
             }
             if(horizontalVelocity.LengthSquared() >= _maxAcceleratedSpeedSquared)
-                horizontalVelocity = horizontalVelocity.Normalized() * _maxAcceleratedSpeed * (float)delta;
+                horizontalVelocity = horizontalVelocity.Normalized() * _maxAcceleratedSpeed;
 
             if(!motionPressed)
             {
