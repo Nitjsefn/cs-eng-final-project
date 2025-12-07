@@ -28,31 +28,13 @@ public partial class Player : CharacterBody3D
         if(this.IsOnFloor())
         {
             Vector2 horizontalVelocity = new Vector2(this.Velocity.X, this.Velocity.Z);
-            bool motionPressed = false;
-            if(Input.IsActionPressed("forward"))
-            {
-                motionPressed = true;
-                horizontalVelocity += Vector2.Up.Rotated(-this.Rotation.Y) * _acceleration * (float)delta;
-            }
-            if(Input.IsActionPressed("back"))
-            {
-                motionPressed = true;
-                horizontalVelocity += Vector2.Down.Rotated(-this.Rotation.Y) * _acceleration * (float)delta;
-            }
-            if(Input.IsActionPressed("left"))
-            {
-                motionPressed = true;
-                horizontalVelocity += Vector2.Left.Rotated(-this.Rotation.Y) * _acceleration * (float)delta;
-            }
-            if(Input.IsActionPressed("right"))
-            {
-                motionPressed = true;
-                horizontalVelocity += Vector2.Right.Rotated(-this.Rotation.Y) * _acceleration * (float)delta;
-            }
+            Vector2 desiredMotionDirection = _createDesiredMotionDirection();
+            horizontalVelocity += desiredMotionDirection * _acceleration * (float)delta;
+
             if(horizontalVelocity.LengthSquared() >= _maxAcceleratedSpeedSquared)
                 horizontalVelocity = horizontalVelocity.Normalized() * _maxAcceleratedSpeed;
 
-            if(!motionPressed)
+            if(desiredMotionDirection.IsZeroApprox())
             {
                 Vector2 slowingVelocity = horizontalVelocity.Normalized() * _deacceleration * (float)delta;
                 if(slowingVelocity.LengthSquared() > horizontalVelocity.LengthSquared())
@@ -85,5 +67,30 @@ public partial class Player : CharacterBody3D
 
             this.Rotation += new Vector3(0, -mouseMotionEvent.Relative.X, 0) * _mouseCameraRotationFactor;
         }
+    }
+
+    private Vector2 _createDesiredMotionDirection()
+    {
+        Vector2 desiredDirection = Vector2.Zero;
+        if(Input.IsActionPressed("forward"))
+        {
+            desiredDirection += Vector2.Up;
+        }
+        if(Input.IsActionPressed("back"))
+        {
+            desiredDirection += Vector2.Down;
+        }
+        if(Input.IsActionPressed("left"))
+        {
+            desiredDirection += Vector2.Left;
+        }
+        if(Input.IsActionPressed("right"))
+        {
+            desiredDirection += Vector2.Right;
+        }
+
+        desiredDirection = desiredDirection.Rotated(-this.Rotation.Y);
+
+        return desiredDirection;
     }
 }
