@@ -15,26 +15,40 @@ public partial class Player : CharacterBody3D
     private Camera3D _camera;
 
 
-	public override void _Ready()
-	{
+    public override void _Ready()
+    {
         _maxAcceleratedSpeedSquared = (float)Math.Pow(_maxAcceleratedSpeed, 2);
         this.Velocity = new Vector3(0, 0, 0);
         this.UpDirection = Vector3.Up;
         _camera = (Camera3D)this.GetNode("Camera3D");
-	}
+    }
 
-	public override void _Process(double delta)
-	{
+    public override void _Process(double delta)
+    {
         if(this.IsOnFloor())
         {
             Vector2 horizontalVelocity = new Vector2(this.Velocity.X, this.Velocity.Z);
             Vector2 desiredMotionDirection = _createDesiredMotionDirection();
-            horizontalVelocity += desiredMotionDirection * _acceleration * (float)delta;
+            if(!desiredMotionDirection.IsZeroApprox())
+            {
+                horizontalVelocity += desiredMotionDirection * _acceleration * (float)delta;
 
-            if(horizontalVelocity.LengthSquared() >= _maxAcceleratedSpeedSquared)
-                horizontalVelocity = horizontalVelocity.Normalized() * _maxAcceleratedSpeed;
+                float desiredMotionAngle = desiredMotionDirection.Angle();
+                Vector2 derotatedHorizontalVelocity = horizontalVelocity.Rotated(-desiredMotionAngle);
+                float sideSlowingSpeed = Math.Sign(derotatedHorizontalVelocity.Y)  * _deacceleration * (float)delta;
+                if(Math.Pow(sideSlowingSpeed, 2) > Math.Pow(derotatedHorizontalVelocity.Y, 2))
+                {
+                    sideSlowingSpeed = derotatedHorizontalVelocity.Y;
+                }
+                derotatedHorizontalVelocity = new Vector2(derotatedHorizontalVelocity.X, derotatedHorizontalVelocity.Y - sideSlowingSpeed);
+                horizontalVelocity = derotatedHorizontalVelocity.Rotated(desiredMotionAngle);
 
-            if(desiredMotionDirection.IsZeroApprox())
+                if(horizontalVelocity.LengthSquared() >= _maxAcceleratedSpeedSquared)
+                {
+                    horizontalVelocity = horizontalVelocity.Normalized() * _maxAcceleratedSpeed;
+                }
+            }
+            else
             {
                 Vector2 slowingVelocity = horizontalVelocity.Normalized() * _deacceleration * (float)delta;
                 if(slowingVelocity.LengthSquared() > horizontalVelocity.LengthSquared())
@@ -53,7 +67,7 @@ public partial class Player : CharacterBody3D
         this.Velocity += _gravityAcceleration * (float)delta;
         MoveAndSlide();
         GD.Print($"Delta: {delta} Velocity: {this.Velocity} Postition: {this.Position}");
-	}
+    }
 
     public override void _Input(InputEvent @event)
     {
