@@ -13,6 +13,7 @@ public partial class Player : CharacterBody3D
     private float _mouseCameraRotationFactor = (float)0.001;
     private Vector3 _floorJumpVelocity = new Vector3(0, 15, 0);
     private Camera3D _camera;
+    private bool _jumpAwaits = false;
 
 
     public override void _Ready()
@@ -58,8 +59,9 @@ public partial class Player : CharacterBody3D
             }
             this.Velocity = new Vector3(horizontalVelocity.X, this.Velocity.Y, horizontalVelocity.Y);
 
-            if(Input.IsActionPressed("jump"))
+            if(_jumpAwaits)
             {
+                _jumpAwaits = false;
                 this.Velocity += _floorJumpVelocity;
             }
         }
@@ -80,6 +82,13 @@ public partial class Player : CharacterBody3D
                 _camera.Rotation = new Vector3(_maxDownCameraAngle, 0, 0);
 
             this.Rotation += new Vector3(0, -mouseMotionEvent.Relative.X, 0) * _mouseCameraRotationFactor;
+        }
+        else if(@event is InputEventKey keyEvent)
+        {
+            if(keyEvent.IsActionPressed("jump") && (this.IsOnFloor() || this.IsOnWall()))
+            {
+                _jumpAwaits = true;
+            }
         }
     }
 
