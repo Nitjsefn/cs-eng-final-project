@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b70sy3js3grhm"]
+[gd_scene load_steps=6 format=3 uid="uid://b70sy3js3grhm"]
 
 [ext_resource type="PackedScene" uid="uid://qufjqlrgwmco" path="res://scenes/platform.tscn" id="1_fj7yv"]
 [ext_resource type="PackedScene" uid="uid://cfa2n2bvqsp1l" path="res://scenes/player.tscn" id="2_tlwt5"]
 [ext_resource type="Script" uid="uid://cwwiq6he4ntus" path="res://scripts/Player.cs" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://dl60xyrjndyr7" path="res://scenes/wall.tscn" id="4_k0juu"]
+[ext_resource type="PackedScene" uid="uid://di7ynfl17ls5o" path="res://scenes/grappling_point.tscn" id="5_71j4m"]
 
 [node name="World" type="Node3D"]
 
@@ -29,3 +30,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.5199, 0, -53.8551)
 
 [node name="Platform4" parent="." instance=ExtResource("1_fj7yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.0815, 0, -128.963)
+
+[node name="StaticBody3D" parent="." instance=ExtResource("5_71j4m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.20979, 17.8479, -5.27461)
