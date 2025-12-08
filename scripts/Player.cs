@@ -11,6 +11,7 @@ public partial class Player : CharacterBody3D
     private float _maxUpCameraAngle = float.DegreesToRadians(50);
     private float _maxDownCameraAngle = float.DegreesToRadians(-50);
     private float _mouseCameraRotationFactor = (float)0.001;
+    private float _wallJumpAcceleration = 15;
     private Vector3 _floorJumpVelocity = new Vector3(0, 15, 0);
     private Camera3D _camera;
     private bool _jumpAwaits = false;
@@ -65,8 +66,40 @@ public partial class Player : CharacterBody3D
                 this.Velocity += _floorJumpVelocity;
             }
         }
+        else if(this.IsOnWall())
+        {
+            Vector2 horizontalVelocity = new Vector2(this.Velocity.X, this.Velocity.Z);
+            Vector2 desiredMotionDirection = _createDesiredMotionDirection();
 
-        this.Velocity += _gravityAcceleration * (float)delta;
+            Vector3 wallNormal = this.GetWallNormal();
+            Vector2 horizontalWallNormal = new Vector2(wallNormal.X, wallNormal.Z);
+            float wallHorizontalAngle = horizontalWallNormal.Angle() + float.DegreesToRadians(90);
+
+            Vector2 derotatedHorizontalVelocity = horizontalVelocity.Rotated(-wallHorizontalAngle);
+            derotatedHorizontalVelocity = new Vector2(derotatedHorizontalVelocity.X, 0);
+            horizontalVelocity = derotatedHorizontalVelocity.Rotated(wallHorizontalAngle);
+
+            horizontalVelocity += horizontalVelocity.Normalized() * _acceleration * (float)delta;
+
+            if(horizontalVelocity.LengthSquared() > _maxAcceleratedSpeedSquared)
+            {
+                horizontalVelocity = horizontalVelocity.Normalized() * _maxAcceleratedSpeed;
+            }
+
+            this.Velocity = new Vector3(horizontalVelocity.X, 0, horizontalVelocity.Y);
+
+            if(_jumpAwaits)
+            {
+                _jumpAwaits = false;
+                Vector3 desiredJumpDirection = new Vector3(desiredMotionDirection.X, _camera.Rotation.Normalized().X, desiredMotionDirection.Y);
+                this.Velocity += desiredJumpDirection * _wallJumpAcceleration;
+            }
+        }
+
+        if(!this.IsOnWall())
+        {
+            this.Velocity += _gravityAcceleration * (float)delta;
+        }
         MoveAndSlide();
         GD.Print($"Delta: {delta} Velocity: {this.Velocity} Postition: {this.Position}");
     }
