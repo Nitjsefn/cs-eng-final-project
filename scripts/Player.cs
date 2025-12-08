@@ -12,9 +12,14 @@ public partial class Player : CharacterBody3D
     private float _maxDownCameraAngle = float.DegreesToRadians(-50);
     private float _mouseCameraRotationFactor = (float)0.001;
     private float _wallJumpAcceleration = 15;
+    private float _crouchingDeacceleration = 2;
     private Vector3 _floorJumpVelocity = new Vector3(0, 15, 0);
     private Camera3D _camera;
     private bool _jumpAwaits = false;
+    private bool _crouching = false;
+    private Vector3 _crouchingScale = new Vector3(1, (float)0.5, 1);
+    private Vector3 _normalScale = new Vector3(1, 1, 1);
+    private Vector3 _crouchingYPosDelta;
 
 
     public override void _Ready()
@@ -23,15 +28,28 @@ public partial class Player : CharacterBody3D
         this.Velocity = new Vector3(0, 0, 0);
         this.UpDirection = Vector3.Up;
         _camera = (Camera3D)this.GetNode("Camera3D");
+        CollisionShape3D collisionShape3D = (CollisionShape3D)this.GetNode("CollisionShape3D");
+        CapsuleShape3D collisionCapsule = (CapsuleShape3D)collisionShape3D.Shape;
+        _crouchingYPosDelta = new Vector3(0, collisionCapsule.Height / 4, 0);
     }
 
     public override void _Process(double delta)
     {
         if(this.IsOnFloor())
         {
+            bool crouchPressed = Input.IsActionPressed("crouch");
+            if(!_crouching && crouchPressed)
+            {
+                _crouch();
+            }
+            else if(_crouching && !crouchPressed)
+            {
+                _uncrouch();
+            }
+
             Vector2 horizontalVelocity = new Vector2(this.Velocity.X, this.Velocity.Z);
             Vector2 desiredMotionDirection = _createDesiredMotionDirection();
-            if(!desiredMotionDirection.IsZeroApprox())
+            if(!_crouching && !desiredMotionDirection.IsZeroApprox())
             {
                 horizontalVelocity += desiredMotionDirection * _acceleration * (float)delta;
 
@@ -52,7 +70,12 @@ public partial class Player : CharacterBody3D
             }
             else
             {
-                Vector2 slowingVelocity = horizontalVelocity.Normalized() * _deacceleration * (float)delta;
+                float deaccelerationToApply = _deacceleration;
+                if(_crouching)
+                {
+                    deaccelerationToApply = _crouchingDeacceleration;
+                }
+                Vector2 slowingVelocity = horizontalVelocity.Normalized() * deaccelerationToApply * (float)delta;
                 if(slowingVelocity.LengthSquared() > horizontalVelocity.LengthSquared())
                     horizontalVelocity = Vector2.Zero;
                 else
@@ -148,5 +171,19 @@ public partial class Player : CharacterBody3D
         desiredDirection = desiredDirection.Rotated(-this.Rotation.Y);
 
         return desiredDirection;
+    }
+
+    private void _crouch()
+    {
+        _crouching = true;
+        this.Scale = _crouchingScale;
+        this.Position -= _crouchingYPosDelta;
+    }
+
+    private void _uncrouch()
+    {
+        _crouching = false;
+        this.Scale = _normalScale;
+        this.Position += _crouchingYPosDelta;
     }
 }
