@@ -9,13 +9,14 @@ albedo_color = Color(0.0560677, 0.524087, 0.732691, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_ggt3b"]
 material = SubResource("StandardMaterial3D_hm8i5")
 
-[node name="StaticBody3D" type="StaticBody3D"]
+[node name="Area3D" type="Area3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_hm8i5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_ggt3b")
+skeleton = NodePath("../..")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.22907, 3.05377, 0)
