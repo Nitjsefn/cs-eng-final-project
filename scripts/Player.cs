@@ -11,7 +11,7 @@ public partial class Player : CharacterBody3D
     private float _maxUpCameraAngle = float.DegreesToRadians(50);
     private float _maxDownCameraAngle = float.DegreesToRadians(-50);
     private float _mouseCameraRotationFactor = (float)0.001;
-    private float _wallJumpAcceleration = 15;
+    private float _wallJumpAcceleration = 5;
     private float _crouchingDeacceleration = 2;
     private Vector3 _floorJumpVelocity = new Vector3(0, 15, 0);
     private Camera3D _camera;
@@ -115,7 +115,7 @@ public partial class Player : CharacterBody3D
             {
                 _jumpAwaits = false;
                 Vector3 desiredJumpDirection = new Vector3(desiredMotionDirection.X, _camera.Rotation.Normalized().X, desiredMotionDirection.Y);
-                this.Velocity += desiredJumpDirection * _wallJumpAcceleration;
+                this.Velocity = desiredJumpDirection * (_wallJumpAcceleration + this.Velocity.Length());
             }
         }
 
