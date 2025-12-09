@@ -20,6 +20,11 @@ public partial class Player : CharacterBody3D
     private Vector3 _crouchingScale = new Vector3(1, (float)0.5, 1);
     private Vector3 _normalScale = new Vector3(1, 1, 1);
     private Vector3 _crouchingYPosDelta;
+    private Area3D _grapplingToNode = null;
+    private bool _grappling = false;
+    private float _grapplingAcceleration = 20;
+    private RayCast3D _grapplingRaycast;
+    private Vector3 _grappleStartPos;
 
 
     public override void _Ready()
@@ -31,6 +36,7 @@ public partial class Player : CharacterBody3D
         CollisionShape3D collisionShape3D = (CollisionShape3D)this.GetNode("CollisionShape3D");
         CapsuleShape3D collisionCapsule = (CapsuleShape3D)collisionShape3D.Shape;
         _crouchingYPosDelta = new Vector3(0, collisionCapsule.Height / 4, 0);
+        _grapplingRaycast = (RayCast3D)_camera.GetNode("RayCast3D");
     }
 
     public override void _Process(double delta)
@@ -119,6 +125,20 @@ public partial class Player : CharacterBody3D
             }
         }
 
+        if(_grappling)
+        {
+            if(this.Position.DistanceSquaredTo(_grapplingToNode.Position) < 100.0)
+            {
+                _grapplingToNode = null;
+                _grappling = false;
+            }
+            else
+            {
+                Vector3 direction = _grapplingToNode.Position - this.Position;
+                this.Velocity += direction.Normalized() * _grapplingAcceleration * (float)delta;
+            }
+        }
+
         if(!this.IsOnWall())
         {
             this.Velocity += _gravityAcceleration * (float)delta;
@@ -144,6 +164,16 @@ public partial class Player : CharacterBody3D
             if(keyEvent.IsActionPressed("jump") && (this.IsOnFloor() || this.IsOnWall()))
             {
                 _jumpAwaits = true;
+            }
+            else if(keyEvent.IsActionPressed("grapple"))
+            {
+                _grapplingRaycast.ForceRaycastUpdate();
+                if(_grapplingRaycast.IsColliding())
+                {
+                    _grappling = true;
+                    _grappleStartPos = this.Position;
+                    _grapplingToNode = (Area3D)_grapplingRaycast.GetCollider();
+                }
             }
         }
     }

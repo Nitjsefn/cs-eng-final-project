@@ -29,6 +29,13 @@ skeleton = NodePath("../../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 current = true
 
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+enabled = false
+target_position = Vector3(0, 0, -50)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+
 [node name="DebugFrontMeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.578327, -0.68608)
 visible = false

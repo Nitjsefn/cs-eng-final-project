@@ -10,6 +10,7 @@ albedo_color = Color(0.0560677, 0.524087, 0.732691, 1)
 material = SubResource("StandardMaterial3D_hm8i5")
 
 [node name="Area3D" type="Area3D"]
+collision_layer = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_hm8i5")
