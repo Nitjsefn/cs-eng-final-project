@@ -127,7 +127,11 @@ public partial class Player : CharacterBody3D
 
         if(_grappling)
         {
-            if(this.Position.DistanceSquaredTo(_grapplingToNode.Position) < 100.0)
+            Vector3 startPointToGrapplePoint = _grapplingToNode.Position - _grappleStartPos;
+            Vector3 fromGrapplePoint = this.Position - _grapplingToNode.Position;
+            Vector3 fromStartPoint = startPointToGrapplePoint + fromGrapplePoint;
+            float grappleReleaseLengthSquared = startPointToGrapplePoint.LengthSquared() + fromGrapplePoint.LengthSquared();
+            if(fromStartPoint.LengthSquared() > grappleReleaseLengthSquared)
             {
                 _grapplingToNode = null;
                 _grappling = false;
