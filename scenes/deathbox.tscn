@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://p8qoy2kqxpc"]
+
+[ext_resource type="Script" uid="uid://cjx1jigl5fq4y" path="res://scripts/Deathbox.cs" id="1_qrl6l"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1fsgt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1fsgt"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qrl6l"]
+material = SubResource("StandardMaterial3D_1fsgt")
+
+[node name="Area3D" type="Area3D"]
+script = ExtResource("1_qrl6l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_1fsgt")
+debug_color = Color(0, 0.6, 0.701961, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BoxMesh_qrl6l")

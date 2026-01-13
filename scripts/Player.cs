@@ -249,4 +249,9 @@ public partial class Player : CharacterBody3D
         _grappling = false;
         _grapplingToNode = null;
     }
+
+    public void OnDeathboxEntered(Node3D body)
+    {
+        _die();
+    }
 }
