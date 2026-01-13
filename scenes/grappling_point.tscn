@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://di7ynfl17ls5o"]
+[gd_scene load_steps=5 format=3 uid="uid://di7ynfl17ls5o"]
+
+[ext_resource type="Script" uid="uid://be8ayartxjjco" path="res://scripts/GrapplingPoint.cs" id="1_ggt3b"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hm8i5"]
 radius = 3.0
@@ -11,6 +13,7 @@ material = SubResource("StandardMaterial3D_hm8i5")
 
 [node name="Area3D" type="Area3D"]
 collision_layer = 2
+script = ExtResource("1_ggt3b")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_hm8i5")

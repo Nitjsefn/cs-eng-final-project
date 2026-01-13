@@ -25,6 +25,7 @@ public partial class Player : CharacterBody3D
     private float _grapplingAcceleration = 20;
     private RayCast3D _grapplingRaycast;
     private Vector3 _grappleStartPos;
+    private GrapplingPoint _currentGrapplingPoint;
 
 
     public override void _Ready()
@@ -41,6 +42,7 @@ public partial class Player : CharacterBody3D
 
     public override void _Process(double delta)
     {
+        _markGrapplePoint();
         if(this.IsOnFloor())
         {
             bool crouchPressed = Input.IsActionPressed("crouch");
@@ -148,7 +150,7 @@ public partial class Player : CharacterBody3D
             this.Velocity += _gravityAcceleration * (float)delta;
         }
         MoveAndSlide();
-        GD.Print($"Delta: {delta} Velocity: {this.Velocity} Postition: {this.Position}");
+        //GD.Print($"Delta: {delta} Velocity: {this.Velocity} Postition: {this.Position}");
     }
 
     public override void _Input(InputEvent @event)
@@ -219,5 +221,21 @@ public partial class Player : CharacterBody3D
         _crouching = false;
         this.Scale = _normalScale;
         this.Position += _crouchingYPosDelta;
+    }
+
+    private void _markGrapplePoint()
+    {
+        if(!_grapplingRaycast.IsColliding())
+        {
+            _currentGrapplingPoint?.NotifyPlayerStoppedLooking();
+            _currentGrapplingPoint = null;
+            return;
+        }
+        //GrapplingPoint collider = (GrapplingPoint);
+        if(_grapplingRaycast.GetCollider() is GrapplingPoint collider && collider != _currentGrapplingPoint)
+        {
+            collider.NotifyPlayerIsLooking();
+            _currentGrapplingPoint = collider;
+        }
     }
 }
