@@ -26,6 +26,8 @@ public partial class Player : CharacterBody3D
     private RayCast3D _grapplingRaycast;
     private Vector3 _grappleStartPos;
     private GrapplingPoint _currentGrapplingPoint;
+    private Vector3 _locationStartPoint = new Vector3(-33.014f, 4.47f, 16.433f);
+    private Vector3 _locationStartRotation = Vector3.Zero;
 
 
     public override void _Ready()
@@ -237,5 +239,14 @@ public partial class Player : CharacterBody3D
             collider.NotifyPlayerIsLooking();
             _currentGrapplingPoint = collider;
         }
+    }
+    
+    private void _die() {
+        this.Velocity = Vector3.Zero;
+        this.Position = _locationStartPoint;
+        this.Rotation = _locationStartRotation;
+        _jumpAwaits = false;
+        _grappling = false;
+        _grapplingToNode = null;
     }
 }
