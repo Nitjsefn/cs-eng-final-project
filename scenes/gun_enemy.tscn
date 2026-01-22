@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://pbh3vb7ylt5c"]
+
+[ext_resource type="Script" uid="uid://bmrrqm8j4uiks" path="res://scripts/GunEnemy.cs" id="1_mfaqi"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_22gtx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mfaqi"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wlo8w"]
+material = SubResource("StandardMaterial3D_mfaqi")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tbmt"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rjse0"]
+material = SubResource("StandardMaterial3D_5tbmt")
+size = Vector3(0.1, 0.1, 1)
+
+[node name="CharacterBody3D" type="CharacterBody3D" groups=["Enemies"]]
+script = ExtResource("1_mfaqi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_22gtx")
+debug_fill = false
+
+[node name="BodyMeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_wlo8w")
+
+[node name="GunMeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.519382, 0.267282, -0.624745)
+mesh = SubResource("BoxMesh_rjse0")
+
+[node name="FiringPointNode3D" type="Node3D" parent="GunMeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.497357)

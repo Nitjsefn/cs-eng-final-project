@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b70sy3js3grhm"]
+[gd_scene load_steps=8 format=3 uid="uid://b70sy3js3grhm"]
 
 [ext_resource type="PackedScene" uid="uid://qufjqlrgwmco" path="res://scenes/platform.tscn" id="1_fj7yv"]
 [ext_resource type="PackedScene" uid="uid://cfa2n2bvqsp1l" path="res://scenes/player.tscn" id="2_tlwt5"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dl60xyrjndyr7" path="res://scenes/wall.tscn" id="4_k0juu"]
 [ext_resource type="PackedScene" uid="uid://di7ynfl17ls5o" path="res://scenes/grappling_point.tscn" id="5_71j4m"]
 [ext_resource type="PackedScene" uid="uid://p8qoy2kqxpc" path="res://scenes/deathbox.tscn" id="6_qfnet"]
+[ext_resource type="PackedScene" uid="uid://pbh3vb7ylt5c" path="res://scenes/gun_enemy.tscn" id="7_i7141"]
 
 [node name="World" type="Node3D"]
 
@@ -37,3 +38,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.20979, 17.8479, -5.27461)
 
 [node name="BottomDeathbox" parent="." instance=ExtResource("6_qfnet")]
 transform = Transform3D(300, 0, 0, 0, 1, 0, 0, 0, 300, 0, -38.2974, -54.3402)
+
+[node name="GunEnemy" parent="." instance=ExtResource("7_i7141")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.4313, 1.73585, 5.14155)
