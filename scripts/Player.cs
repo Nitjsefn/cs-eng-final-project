@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Player : CharacterBody3D
+public partial class Player : CharacterBody3D, IDamageable
 {
     private Vector3 _gravityAcceleration = new Vector3(0, -10, 0);
     private float _acceleration = 10;
@@ -28,6 +28,8 @@ public partial class Player : CharacterBody3D
     private GrapplingPoint _currentGrapplingPoint;
     private Vector3 _locationStartPoint = new Vector3(-33.014f, 4.47f, 16.433f);
     private Vector3 _locationStartRotation = Vector3.Zero;
+    private const int _startingHealth = 1;
+    private int _health = _startingHealth;
 
 
     public override void _Ready()
@@ -248,10 +250,22 @@ public partial class Player : CharacterBody3D
         _jumpAwaits = false;
         _grappling = false;
         _grapplingToNode = null;
+        _health = _startingHealth;
+        _currentGrapplingPoint?.NotifyPlayerStoppedLooking();
     }
 
     public void OnDeathboxEntered(Node3D body)
     {
+        _die();
+    }
+
+    public void DealDamage(int dmg)
+    {
+        _health -= dmg;
+        if(_health > 0)
+        {
+            return;
+        }
         _die();
     }
 }
