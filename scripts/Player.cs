@@ -28,8 +28,12 @@ public partial class Player : CharacterBody3D, IDamageable
     private GrapplingPoint _currentGrapplingPoint;
     private Vector3 _locationStartPoint = new Vector3(-33.014f, 4.47f, 16.433f);
     private Vector3 _locationStartRotation = Vector3.Zero;
-    private const int _startingHealth = 1;
+    private const int _startingHealth = 9999;
     private int _health = _startingHealth;
+    private const int _slashDamage = 1;
+    private AttackAnimationState _slashAttackState = AttackAnimationState.READY;
+    private Area3D _swordArea3D;
+    private AnimationPlayer _swordAnimationPlayer;
 
 
     public override void _Ready()
@@ -42,6 +46,8 @@ public partial class Player : CharacterBody3D, IDamageable
         CapsuleShape3D collisionCapsule = (CapsuleShape3D)collisionShape3D.Shape;
         _crouchingYPosDelta = new Vector3(0, collisionCapsule.Height / 4, 0);
         _grapplingRaycast = (RayCast3D)_camera.GetNode("RayCast3D");
+        _swordArea3D = this.GetNode<Area3D>("SwordArea3D");
+        _swordAnimationPlayer = _swordArea3D.GetNode<AnimationPlayer>("AnimationPlayer");
     }
 
     public override void _Process(double delta)
@@ -185,6 +191,15 @@ public partial class Player : CharacterBody3D, IDamageable
                     _grapplingToNode = (Area3D)_grapplingRaycast.GetCollider();
                 }
             }
+            else if(keyEvent.IsActionPressed("attack"))
+            {
+                if(_swordAnimationPlayer.IsPlaying())
+                {
+                    return;
+                }
+                _swordAnimationPlayer.Play("sword_slash");
+                _slashAttackState = AttackAnimationState.ACTIVE;
+            }
         }
     }
 
@@ -267,5 +282,51 @@ public partial class Player : CharacterBody3D, IDamageable
             return;
         }
         _die();
+    }
+
+    public void OnSwordAreaBodyOrAreaEntered(Node3D node)
+    {
+        if(_slashAttackState != AttackAnimationState.ACTIVE)
+        {
+            return;
+        }
+        if(node is Player)
+        {
+            return;
+        }
+
+        if(node is IDeflectable deflectable)
+        {
+            PerformDeflect(deflectable);
+        }
+        else if(node is IDamageable damageable)
+        {
+            PerformDealingDamage(damageable);
+        }
+    }
+
+    private void PerformDeflect(IDeflectable deflectable)
+    {
+        //Vector3 deflectRotation = new(_camera.Rotation.X, this.Rotation.Y, 0);
+        //Vector3 deflectDest = Vector3.Forward.Rotated(deflectRotation.Normalized(), );
+        Vector3 deflectDest = -_camera.GlobalBasis.Z.Normalized();
+        if(deflectable is Bullet bullet)
+        {
+            bullet.HarmfulToEnemies = true;
+        }
+        deflectable.Deflect(null, deflectDest);
+    }
+
+    private void PerformDealingDamage(IDamageable damageable)
+    {
+        damageable.DealDamage(_slashDamage);
+    }
+
+    public void OnSwordAnimationFinished(StringName animationName)
+    {
+        if(animationName == "sword_slash")
+        {
+            _slashAttackState = AttackAnimationState.READY;
+        }
     }
 }

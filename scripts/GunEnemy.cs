@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class GunEnemy : CharacterBody3D
+public partial class GunEnemy : CharacterBody3D, IDamageable
 {
 	private Player _player = null;
 	private Node3D _firingPointNode3D;
@@ -11,6 +11,7 @@ public partial class GunEnemy : CharacterBody3D
 	private const double _visionRangeSquared = _visionRange * _visionRange;
 	private Node _parentNode;
 	private MeshInstance3D _gunMeshInstance;
+    private int _health = 1;
 
 	public override void _Ready()
 	{
@@ -98,4 +99,18 @@ public partial class GunEnemy : CharacterBody3D
 		);
 		this.AddSibling(bullet);
 	}
+
+    private void Die()
+    {
+        this.QueueFree();
+    }
+
+    public void DealDamage(int dmg)
+    {
+        _health -= dmg;
+        if(_health <= 0)
+        {
+            Die();
+        }
+    }
 }

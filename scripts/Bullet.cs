@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Bullet : Area3D
+public partial class Bullet : Area3D, IDeflectable
 {
     private Vector3 _velocity;
     private const double _speed = 40;
@@ -9,11 +9,19 @@ public partial class Bullet : Area3D
     private const float _maxTravelDistance = 10;
     private const float _maxTravelDistanceSquared = _maxTravelDistance * _maxTravelDistance;
     private Vector3 _startPosition;
+    private bool _harmfulToEnemies = false;
+    private Node3D _lastDeflectingCollider = null;
+
+    public bool HarmfulToEnemies
+    {
+        get { return _harmfulToEnemies; }
+        set { _harmfulToEnemies = value; }
+    }
 
     public static Bullet Instantiate(Vector3 position, Vector3 relTargetPos, double HAngle, double VAngle)
     {
         Bullet bullet = (Bullet)PreloadedScenes.BulletScene.Instantiate();
-        bullet._velocity = relTargetPos.Normalized() * (float)_speed;
+        bullet._velocity = CalcVelocity(relTargetPos);
         Transform3D transform = bullet.Transform;
         transform.Origin = position;
         bullet.Transform = transform;
@@ -39,6 +47,15 @@ public partial class Bullet : Area3D
 
     public void OnBodyEntered(Node3D body)
     {
+        if(_lastDeflectingCollider != null)
+        {
+            _lastDeflectingCollider = null;
+            return;
+        }
+        if(!_harmfulToEnemies && body.IsInGroup("Enemies"))
+        {
+            return;
+        }
         if(body is IDamageable damageable)
         {
             damageable.DealDamage(_damage);
@@ -49,5 +66,24 @@ public partial class Bullet : Area3D
     private void _onImpact()
     {
         this.QueueFree();
+    }
+
+    public void Deflect(Node3D collider, Vector3 destination)
+    {
+        _lastDeflectingCollider = collider;
+        _velocity = CalcVelocity(destination);
+        Transform3D transform = new(Godot.Basis.LookingAt(destination), this.GlobalTransform.Origin);
+        this.GlobalTransform = transform;
+    }
+
+    private static Vector3 CalcVelocity(Vector3 destination)
+    {
+        if(!destination.IsNormalized())
+        {
+            destination = destination.Normalized();
+        }
+        Vector3 velocity = destination  * (float)_speed;
+
+        return velocity;
     }
 }
