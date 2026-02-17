@@ -18,6 +18,9 @@ public partial class Bullet : Area3D, IDeflectable
         set { _harmfulToEnemies = value; }
     }
 
+    [Signal]
+    public delegate void DestroyedSignalEventHandler(Bullet instance);
+
     public static Bullet Instantiate(Vector3 position, Vector3 relTargetPos, double HAngle, double VAngle)
     {
         Bullet bullet = (Bullet)PreloadedScenes.BulletScene.Instantiate();
@@ -26,6 +29,18 @@ public partial class Bullet : Area3D, IDeflectable
         transform.Origin = position;
         bullet.Transform = transform;
         bullet.Rotation = new Vector3(0, (float)HAngle, (float)-VAngle);
+        bullet._startPosition = position;
+        return bullet;
+    }
+
+    public static Bullet Instantiate(Vector3 position, Vector3 relTargetPos)
+    {
+        Bullet bullet = (Bullet)PreloadedScenes.BulletScene.Instantiate();
+        bullet._velocity = CalcVelocity(relTargetPos);
+        Transform3D transform = bullet.Transform;
+        transform.Origin = position;
+        transform.Basis = Godot.Basis.LookingAt(relTargetPos);
+        bullet.Transform = transform;
         bullet._startPosition = position;
         return bullet;
     }
@@ -65,6 +80,7 @@ public partial class Bullet : Area3D, IDeflectable
 
     private void _onImpact()
     {
+        this.EmitSignal(SignalName.DestroyedSignal, this);
         this.QueueFree();
     }
 
