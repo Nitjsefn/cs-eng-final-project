@@ -1,41 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://b70sy3js3grhm"]
+[gd_scene load_steps=4 format=3 uid="uid://b70sy3js3grhm"]
 
-[ext_resource type="PackedScene" uid="uid://qufjqlrgwmco" path="res://scenes/platform.tscn" id="1_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://caeugfjys3cjd" path="res://scenes/test_level_1.tscn" id="1_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://cfa2n2bvqsp1l" path="res://scenes/player.tscn" id="2_tlwt5"]
-[ext_resource type="PackedScene" uid="uid://dl60xyrjndyr7" path="res://scenes/wall.tscn" id="4_k0juu"]
-[ext_resource type="PackedScene" uid="uid://di7ynfl17ls5o" path="res://scenes/grappling_point.tscn" id="5_71j4m"]
-[ext_resource type="PackedScene" uid="uid://p8qoy2kqxpc" path="res://scenes/deathbox.tscn" id="6_qfnet"]
-[ext_resource type="PackedScene" uid="uid://pbh3vb7ylt5c" path="res://scenes/gun_enemy.tscn" id="7_i7141"]
+[ext_resource type="PackedScene" uid="uid://birubw3odo6ah" path="res://scenes/tp_boss_arena.tscn" id="3_4wyf3"]
 
 [node name="World" type="Node3D"]
 
-[node name="Platform" parent="." instance=ExtResource("1_fj7yv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.6699, 0, 15.3691)
-
-[node name="Platform2" parent="." instance=ExtResource("1_fj7yv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.2164, 0, 15.3691)
-
-[node name="Platform3" parent="." instance=ExtResource("1_fj7yv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.21189, 0, -34.1109)
+[node name="TestLevel1" parent="." instance=ExtResource("1_rwgxs")]
 
 [node name="Player" parent="." instance=ExtResource("2_tlwt5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.0143, 4.46956, 16.4334)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.66596, 520.2)
 
-[node name="DebugCamera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.0226602, -0.304083, 0.952376, 0.00723311, 0.952646, 0.303997, -0.999717, 6.47529e-10, 0.0237866, 0, 7.36095, 4.86913)
-fov = 29.2
-
-[node name="Wall" parent="." instance=ExtResource("4_k0juu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.5199, 0, -53.8551)
-
-[node name="Platform4" parent="." instance=ExtResource("1_fj7yv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.0815, 0, -128.963)
-
-[node name="StaticBody3D" parent="." instance=ExtResource("5_71j4m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.20979, 17.8479, -5.27461)
-
-[node name="BottomDeathbox" parent="." instance=ExtResource("6_qfnet")]
-transform = Transform3D(300, 0, 0, 0, 1, 0, 0, 0, 300, 0, -38.2974, -54.3402)
-
-[node name="GunEnemy" parent="." instance=ExtResource("7_i7141")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.4313, 1.73585, 5.14155)
+[node name="TPBossArena" parent="." instance=ExtResource("3_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 606.365)

@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://caeugfjys3cjd"]
+
+[ext_resource type="PackedScene" uid="uid://qufjqlrgwmco" path="res://scenes/platform.tscn" id="1_3xdft"]
+[ext_resource type="PackedScene" uid="uid://dl60xyrjndyr7" path="res://scenes/wall.tscn" id="2_2tvoo"]
+[ext_resource type="PackedScene" uid="uid://di7ynfl17ls5o" path="res://scenes/grappling_point.tscn" id="3_nm6rt"]
+[ext_resource type="PackedScene" uid="uid://p8qoy2kqxpc" path="res://scenes/deathbox.tscn" id="4_ks0v4"]
+[ext_resource type="PackedScene" uid="uid://pbh3vb7ylt5c" path="res://scenes/gun_enemy.tscn" id="5_pkoj0"]
+[ext_resource type="PackedScene" uid="uid://6csy8vgucjwl" path="res://scenes/player_entered_event.tscn" id="6_2tvoo"]
+
+[node name="TestLevel1" type="Node3D"]
+
+[node name="Platform" parent="." instance=ExtResource("1_3xdft")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.6699, 0, 15.3691)
+
+[node name="Platform2" parent="." instance=ExtResource("1_3xdft")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.2164, 0, 15.3691)
+
+[node name="Platform3" parent="." instance=ExtResource("1_3xdft")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.21189, 0, -34.1109)
+
+[node name="DebugCamera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.0226602, -0.304083, 0.952376, 0.00723311, 0.952646, 0.303997, -0.999717, 1.21104e-08, 0.0237866, 0, 7.36095, 4.86913)
+fov = 29.2
+
+[node name="Wall" parent="." instance=ExtResource("2_2tvoo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60.5199, 0, -53.8551)
+
+[node name="Platform4" parent="." instance=ExtResource("1_3xdft")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.0815, 0, -128.963)
+
+[node name="StaticBody3D" parent="." instance=ExtResource("3_nm6rt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.20979, 17.8479, -5.27461)
+
+[node name="BottomDeathbox" parent="." instance=ExtResource("4_ks0v4")]
+transform = Transform3D(300, 0, 0, 0, 1, 0, 0, 0, 300, 0, -38.2974, -54.3402)
+
+[node name="GunEnemy" parent="." instance=ExtResource("5_pkoj0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.4313, 1.73585, 5.14155)
+
+[node name="Area3D" parent="." instance=ExtResource("6_2tvoo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.5349, 1.17395, 0.973531)
+AreaKey = &"TestLevel1"
