@@ -1,0 +1,100 @@
+[gd_scene load_steps=6 format=3 uid="uid://birubw3odo6ah"]
+
+[ext_resource type="PackedScene" uid="uid://qufjqlrgwmco" path="res://scenes/platform.tscn" id="1_ji2vf"]
+[ext_resource type="PackedScene" uid="uid://dl60xyrjndyr7" path="res://scenes/wall.tscn" id="2_cqb64"]
+[ext_resource type="PackedScene" uid="uid://b4adcfxyhaydm" path="res://scenes/door.tscn" id="3_5g5fb"]
+[ext_resource type="PackedScene" uid="uid://rqcwyw211hq6" path="res://scenes/teleporting_boss.tscn" id="4_f5hm8"]
+[ext_resource type="PackedScene" uid="uid://6csy8vgucjwl" path="res://scenes/player_entered_event.tscn" id="5_cqb64"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Platform" parent="." instance=ExtResource("1_ji2vf")]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+
+[node name="OmniLight3D" parent="Platform" index="1"]
+light_energy = 1.485
+omni_range = 282.108
+
+[node name="Wall" parent="." instance=ExtResource("2_cqb64")]
+transform = Transform3D(-1, 0, -2.97237e-07, 0, 3, 0, 8.74228e-08, 0, -3.4, 148.796, 44.3679, 0)
+
+[node name="OmniLight3D" parent="Wall" index="1"]
+visible = false
+
+[node name="Wall2" parent="." instance=ExtResource("2_cqb64")]
+transform = Transform3D(1, 0, 0, 0, 3, 0, 0, 0, 3.4, -149.979, 44.3679, 0)
+
+[node name="OmniLight3D" parent="Wall2" index="1"]
+visible = false
+
+[node name="Wall3" parent="." instance=ExtResource("2_cqb64")]
+transform = Transform3D(-4.37114e-08, 0, -1.63, 0, 3, 0, 1, 0, -7.12496e-08, -75.8184, 44.3679, -149.499)
+
+[node name="OmniLight3D" parent="Wall3" index="1"]
+visible = false
+
+[node name="Wall4" parent="." instance=ExtResource("2_cqb64")]
+transform = Transform3D(-4.37114e-08, 0, -1.63, 0, 3, 0, 1, 0, -7.12496e-08, 75.7331, 44.3679, -149.499)
+
+[node name="OmniLight3D" parent="Wall4" index="1"]
+visible = false
+
+[node name="Wall5" parent="." instance=ExtResource("2_cqb64")]
+transform = Transform3D(-4.37114e-08, 0, 1.65, 0, 3, 0, -1, 0, -7.21238e-08, 76.7106, 44.3679, 149.521)
+
+[node name="OmniLight3D" parent="Wall5" index="1"]
+visible = false
+
+[node name="Wall6" parent="." instance=ExtResource("2_cqb64")]
+transform = Transform3D(-4.37114e-08, 0, 1.65, 0, 3, 0, -1, 0, -7.21238e-08, -76.5556, 44.3679, 149.513)
+
+[node name="OmniLight3D" parent="Wall6" index="1"]
+visible = false
+
+[node name="Wall7" parent="." instance=ExtResource("2_cqb64")]
+transform = Transform3D(-4.37114e-08, 0, 0.1, 0, 2.8, 0, -1, 0, -4.37114e-09, -0.336479, 47.9889, 149.513)
+
+[node name="OmniLight3D" parent="Wall7" index="1"]
+visible = false
+
+[node name="Wall8" parent="." instance=ExtResource("2_cqb64")]
+transform = Transform3D(-4.37114e-08, 0, -0.1, 0, 2.8, 0, 1, 0, -4.37114e-09, -0.336479, 47.9889, -149.501)
+
+[node name="OmniLight3D" parent="Wall8" index="1"]
+visible = false
+
+[node name="DoorIn" parent="." instance=ExtResource("3_5g5fb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.408, -149.491)
+OpenDefault = true
+
+[node name="DoorOut" parent="." instance=ExtResource("3_5g5fb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15335, 149.506)
+
+[node name="TeleportingBoss" parent="." instance=ExtResource("4_f5hm8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08981, 115.656)
+
+[node name="Platform2" parent="." instance=ExtResource("1_ji2vf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 164.89)
+
+[node name="DoorOutArea3D" parent="." instance=ExtResource("5_cqb64")]
+transform = Transform3D(5, 0, 0, 0, 8, 0, 0, 0, 1, 0, 2.89626, 150.459)
+AreaKey = &"AfterTPBoss"
+
+[node name="DoorInArea3D" parent="." instance=ExtResource("5_cqb64")]
+transform = Transform3D(6, 0, 0, 0, 8, 0, 0, 0, 1, 0, 3.9483, -148.175)
+AreaKey = &"TPBossStart"
+
+[connection signal="DefeatedSignal" from="TeleportingBoss" to="DoorOut" method="Open"]
+[connection signal="PlayerEnteredSignal" from="DoorOutArea3D" to="DoorIn" method="Close"]
+[connection signal="PlayerEnteredSignal" from="DoorInArea3D" to="DoorIn" method="Close"]
+[connection signal="PlayerEnteredSignal" from="DoorInArea3D" to="TeleportingBoss" method="OnPlayerEnteredArena"]
+
+[editable path="Platform"]
+[editable path="Wall"]
+[editable path="Wall2"]
+[editable path="Wall3"]
+[editable path="Wall4"]
+[editable path="Wall5"]
+[editable path="Wall6"]
+[editable path="Wall7"]
+[editable path="Wall8"]

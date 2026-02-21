@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://6csy8vgucjwl"]
+
+[ext_resource type="Script" uid="uid://cqapxkvb2af2v" path="res://scripts/PlayerEnteredEvent.cs" id="1_k308v"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u77kk"]
+
+[node name="Area3D" type="Area3D"]
+script = ExtResource("1_k308v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_u77kk")
+debug_color = Color(0.980369, 0, 0.384219, 1)
+
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]
