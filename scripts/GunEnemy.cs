@@ -32,7 +32,7 @@ public partial class GunEnemy : CharacterBody3D, IDamageable
 
 	private void FetchPlayer()
 	{
-		_player = this.GetNodeOrNull<Player>("../Player");
+		_player = this.GetNodeOrNull<Player>("/root/GameRoot/World/Player");
 	}
 
 	private bool CheckForPlayer()
