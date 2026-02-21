@@ -44,4 +44,9 @@ public partial class GameRoot : Node
         this.GetTree().Paused = false;
         Input.MouseMode = Input.MouseModeEnum.Captured;
     }
+
+    public void OnPlayerEnteredArea(StringName areaKey)
+    {
+        GD.Print(areaKey);
+    }
 }
