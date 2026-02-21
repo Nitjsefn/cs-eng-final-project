@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://cfa2n2bvqsp1l"]
+[gd_scene load_steps=17 format=3 uid="uid://cfa2n2bvqsp1l"]
 
 [ext_resource type="Script" uid="uid://cwwiq6he4ntus" path="res://scripts/Player.cs" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://rcusp7ju60j3" path="res://scripts/Sword.cs" id="2_g2els"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ph1ng"]
 
@@ -90,6 +91,67 @@ _data = {
 &"sword_slash": SubResource("Animation_3vyb7")
 }
 
+[sub_resource type="Animation" id="Animation_qhqgy"]
+resource_name = "parried"
+length = 0.64
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwordArea3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.633333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.675279, 0, 0), Vector3(0.675279, 0, 0), Vector3(0.675279, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwordArea3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.633333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.648995, 0.072075, 0.0435769), Vector3(1.02865, -0.181305, -0.32606), Vector3(0.648995, 0.072075, 0.0435769)]
+}
+
+[sub_resource type="Animation" id="Animation_dqkch"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SwordArea3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.675279, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SwordArea3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.648995, 0.072075, 0.0435769)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qlg0r"]
+_data = {
+&"RESET": SubResource("Animation_dqkch"),
+&"parried": SubResource("Animation_qhqgy")
+}
+
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_3vyb7")
 
@@ -118,6 +180,7 @@ mesh = SubResource("BoxMesh_3vyb7")
 
 [node name="SwordArea3D" type="Area3D" parent="."]
 transform = Transform3D(0.998353, 3.20822e-05, 0.0573719, 0.0347064, 0.795936, -0.604386, -0.0456837, 0.605382, 0.794623, 0.675279, 0, 0)
+script = ExtResource("2_g2els")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SwordArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
@@ -133,6 +196,12 @@ libraries = {
 &"": SubResource("AnimationLibrary_qhqgy")
 }
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qlg0r")
+}
+
+[connection signal="ParriedSignal" from="SwordArea3D" to="." method="OnSwordParried"]
 [connection signal="area_entered" from="SwordArea3D" to="." method="OnSwordAreaBodyOrAreaEntered"]
 [connection signal="body_entered" from="SwordArea3D" to="." method="OnSwordAreaBodyOrAreaEntered"]
 [connection signal="animation_finished" from="SwordArea3D/AnimationPlayer" to="." method="OnSwordAnimationFinished"]

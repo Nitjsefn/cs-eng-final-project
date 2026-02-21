@@ -34,6 +34,10 @@ public partial class Player : CharacterBody3D, IDamageable
     private AttackAnimationState _slashAttackState = AttackAnimationState.READY;
     private Area3D _swordArea3D;
     private AnimationPlayer _swordAnimationPlayer;
+    private AnimationPlayer _animationPlayer;
+
+    [Signal]
+    public delegate void AttackSignalEventHandler();
 
 
     public override void _Ready()
@@ -48,10 +52,15 @@ public partial class Player : CharacterBody3D, IDamageable
         _grapplingRaycast = (RayCast3D)_camera.GetNode("RayCast3D");
         _swordArea3D = this.GetNode<Area3D>("SwordArea3D");
         _swordAnimationPlayer = _swordArea3D.GetNode<AnimationPlayer>("AnimationPlayer");
+        _animationPlayer = this.GetNode<AnimationPlayer>("AnimationPlayer");
     }
 
     public override void _Process(double delta)
     {
+        if(_animationPlayer.CurrentAnimation == "parried")
+        {
+            return;
+        }
         _markGrapplePoint();
         if(this.IsOnFloor())
         {
@@ -299,6 +308,10 @@ public partial class Player : CharacterBody3D, IDamageable
         {
             PerformDeflect(deflectable);
         }
+        else if(node is IParryable parryable)
+        {
+            PerformParry(parryable);
+        }
         else if(node is IDamageable damageable)
         {
             PerformDealingDamage(damageable);
@@ -322,11 +335,27 @@ public partial class Player : CharacterBody3D, IDamageable
         damageable.DealDamage(_slashDamage);
     }
 
+    private void PerformParry(IParryable parryable)
+    {
+        parryable.Parry();
+    }
+
     public void OnSwordAnimationFinished(StringName animationName)
     {
         if(animationName == "sword_slash")
         {
             _slashAttackState = AttackAnimationState.READY;
         }
+    }
+
+    public void OnSwordParried()
+    {
+        if(_slashAttackState != AttackAnimationState.ACTIVE)
+        {
+            return;
+        }
+        _slashAttackState = AttackAnimationState.READY;
+        _swordAnimationPlayer.Stop();
+        _animationPlayer.Play("parried");
     }
 }
