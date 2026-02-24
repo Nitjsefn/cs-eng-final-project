@@ -28,7 +28,7 @@ public partial class Player : CharacterBody3D, IDamageable
     private GrapplingPoint _currentGrapplingPoint;
     private Vector3 _locationStartPoint = new Vector3(-33.014f, 4.47f, 16.433f);
     private Vector3 _locationStartRotation = Vector3.Zero;
-    private const int _startingHealth = 9999;
+    private const int _startingHealth = 1;
     private int _health = _startingHealth;
     private const int _slashDamage = 1;
     private AttackAnimationState _slashAttackState = AttackAnimationState.READY;

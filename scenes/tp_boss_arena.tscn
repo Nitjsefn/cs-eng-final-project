@@ -16,7 +16,7 @@ light_energy = 1.485
 omni_range = 282.108
 
 [node name="Wall" parent="." instance=ExtResource("2_cqb64")]
-transform = Transform3D(-1, 0, -2.97237e-07, 0, 3, 0, 8.74228e-08, 0, -3.4, 148.796, 44.3679, 0)
+transform = Transform3D(-1, 0, 2.97237e-07, 0, 3, 0, -8.74228e-08, 0, -3.4, 148.796, 44.3679, 0)
 
 [node name="OmniLight3D" parent="Wall" index="1"]
 visible = false
