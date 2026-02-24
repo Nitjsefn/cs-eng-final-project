@@ -1,0 +1,119 @@
+[gd_scene load_steps=13 format=3 uid="uid://cmf2na46t7ltb"]
+
+[ext_resource type="PackedScene" uid="uid://dl60xyrjndyr7" path="res://scenes/wall.tscn" id="1_1i0tm"]
+[ext_resource type="Script" uid="uid://m7l30m02f3k8" path="res://scripts/MomentumBossArena.cs" id="1_dvfd5"]
+[ext_resource type="PackedScene" uid="uid://dnkqlq18brjb2" path="res://scenes/momentum_boss.tscn" id="2_wmet1"]
+[ext_resource type="PackedScene" uid="uid://6csy8vgucjwl" path="res://scenes/player_entered_event.tscn" id="3_dvfd5"]
+[ext_resource type="PackedScene" uid="uid://bq86uus2adr78" path="res://scenes/laser_beam.tscn" id="4_s5ebb"]
+[ext_resource type="PackedScene" uid="uid://p8qoy2kqxpc" path="res://scenes/deathbox.tscn" id="5_wmet1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ley6x"]
+size = Vector3(40, 1, 25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u2lxy"]
+albedo_color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8b4ei"]
+material = SubResource("StandardMaterial3D_u2lxy")
+size = Vector3(40, 1, 25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sgb3t"]
+size = Vector3(40, 1, 35)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ovb32"]
+albedo_color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e7n1x"]
+material = SubResource("StandardMaterial3D_ovb32")
+size = Vector3(40, 1, 35)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_dvfd5")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19.6334)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_ley6x")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D"]
+mesh = SubResource("BoxMesh_8b4ei")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -63.1693)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+shape = SubResource("BoxShape3D_sgb3t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2/CollisionShape3D"]
+mesh = SubResource("BoxMesh_e7n1x")
+skeleton = NodePath("../../..")
+
+[node name="Wall" parent="." instance=ExtResource("1_1i0tm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.25, -20.1621, 14.5737, -24.1002)
+
+[node name="OmniLight3D" parent="Wall" index="1"]
+visible = false
+
+[node name="Wall2" parent="." instance=ExtResource("1_1i0tm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.25, 20.1342, 14.6241, -23.9884)
+
+[node name="OmniLight3D" parent="Wall2" index="1"]
+visible = false
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 38.9832, -22.6822)
+omni_range = 74.407
+omni_attenuation = -0.35
+
+[node name="MomentumBossCharacterBody3D" parent="." instance=ExtResource("2_wmet1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.92486, -53.2834)
+
+[node name="MomentumBossEntryArea3D" parent="." instance=ExtResource("3_dvfd5")]
+transform = Transform3D(40, 0, 0, 0, 30, 0, 0, 0, 1, 0, 15.7692, 30.6417)
+AreaKey = &"MometumBossEntry"
+
+[node name="laserWallNode3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.1955, 14.5896, 4.32939)
+
+[node name="laserArea3D" parent="laserWallNode3D" instance=ExtResource("4_s5ebb")]
+transform = Transform3D(1, 0, 0, 0, 30, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="laserArea3D2" parent="laserWallNode3D" instance=ExtResource("4_s5ebb")]
+transform = Transform3D(1, 0, 0, 0, 30, 0, 0, 0, 1, 0, 0, -4.77665)
+
+[node name="laserArea3D3" parent="laserWallNode3D" instance=ExtResource("4_s5ebb")]
+transform = Transform3D(1, 0, 0, 0, 30, 0, 0, 0, 1, 0, 0, -9.44071)
+
+[node name="laserArea3D4" parent="laserWallNode3D" instance=ExtResource("4_s5ebb")]
+transform = Transform3D(1, 0, 0, 0, 30, 0, 0, 0, 1, 0, 0, -14.8341)
+
+[node name="laserArea3D5" parent="laserWallNode3D" instance=ExtResource("4_s5ebb")]
+transform = Transform3D(1, 0, 0, 0, 30, 0, 0, 0, 1, 0, 0, -20.6255)
+
+[node name="laserWallNode3D2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.2907, 14.5896, 4.32939)
+
+[node name="laserArea3D" parent="laserWallNode3D2" instance=ExtResource("4_s5ebb")]
+transform = Transform3D(1, 0, 0, 0, 30, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="laserArea3D2" parent="laserWallNode3D2" instance=ExtResource("4_s5ebb")]
+transform = Transform3D(1, 0, 0, 0, 30, 0, 0, 0, 1, 0, 0, -4.77665)
+
+[node name="laserArea3D3" parent="laserWallNode3D2" instance=ExtResource("4_s5ebb")]
+transform = Transform3D(1, 0, 0, 0, 30, 0, 0, 0, 1, 0, 0, -9.44071)
+
+[node name="laserArea3D4" parent="laserWallNode3D2" instance=ExtResource("4_s5ebb")]
+transform = Transform3D(1, 0, 0, 0, 30, 0, 0, 0, 1, 0, 0, -14.8341)
+
+[node name="laserArea3D5" parent="laserWallNode3D2" instance=ExtResource("4_s5ebb")]
+transform = Transform3D(1, 0, 0, 0, 30, 0, 0, 0, 1, 0, 0, -20.557)
+
+[node name="DeathboxArea3D" parent="." instance=ExtResource("5_wmet1")]
+transform = Transform3D(80, 0, 0, 0, 1, 0, 0, 0, 120, 0, -13.8066, -10.8549)
+
+[connection signal="DestroyedSignal" from="MomentumBossCharacterBody3D" to="." method="OnBossDestroyed"]
+[connection signal="PlayerEnteredSignal" from="MomentumBossEntryArea3D" to="MomentumBossCharacterBody3D" method="OnPlayerEnteredArena"]
+
+[editable path="Wall"]
+[editable path="Wall2"]
