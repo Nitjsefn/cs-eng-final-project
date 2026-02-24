@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfs7y6d1kwtup"]
+[gd_scene load_steps=5 format=3 uid="uid://cfs7y6d1kwtup"]
 
 [ext_resource type="PackedScene" uid="uid://b70sy3js3grhm" path="res://scenes/world.tscn" id="1_78s5d"]
 [ext_resource type="Script" uid="uid://d10rd6mncjpy5" path="res://scripts/GameRoot.cs" id="1_ni5ms"]
+[ext_resource type="PackedScene" uid="uid://dq3qvqxpcuia8" path="res://scenes/3d_overlay.tscn" id="3_jb3nc"]
+[ext_resource type="PackedScene" uid="uid://co1ieeh4rln2w" path="res://scenes/main_menu.tscn" id="3_uebra"]
 
 [node name="GameRoot" type="Node"]
 process_mode = 3
@@ -9,3 +11,8 @@ script = ExtResource("1_ni5ms")
 
 [node name="World" parent="." instance=ExtResource("1_78s5d")]
 process_mode = 1
+
+[node name="OverlayControl" parent="." instance=ExtResource("3_jb3nc")]
+
+[node name="BGPanel" parent="." instance=ExtResource("3_uebra")]
+visible = false

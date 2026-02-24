@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://cknitwyf77021"]
+
+[ext_resource type="LabelSettings" uid="uid://d27w8lxfuk3r1" path="res://styles/title_label.tres" id="1_rvg4c"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.5
+offset_top = -308.0
+offset_right = 159.5
+offset_bottom = -228.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Load Game"
+label_settings = ExtResource("1_rvg4c")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 192.0
+offset_top = 128.0
+offset_right = -192.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

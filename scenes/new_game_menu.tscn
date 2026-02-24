@@ -1,0 +1,95 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfukf4ua4xyn0"]
+
+[ext_resource type="LabelSettings" uid="uid://d27w8lxfuk3r1" path="res://styles/title_label.tres" id="1_4tstq"]
+[ext_resource type="PackedScene" uid="uid://b67k66ww3ynok" path="res://scenes/menu_button.tscn" id="2_a1bvw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_syqxf"]
+content_margin_left = 15.0
+content_margin_top = 20.0
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.941176, 0.917647, 0.121569, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -235.5
+offset_top = -252.0
+offset_right = 235.5
+offset_bottom = -183.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Choose Gamemode"
+label_settings = ExtResource("1_4tstq")
+
+[node name="CasualButton" parent="." instance=ExtResource("2_a1bvw")]
+layout_mode = 1
+offset_left = -416.0
+offset_top = -100.0
+offset_right = -66.0
+offset_bottom = 50.0
+toggle_mode = true
+text = "Casual"
+
+[node name="RoguelikeButton" parent="." instance=ExtResource("2_a1bvw")]
+layout_mode = 1
+offset_left = 64.0
+offset_top = -100.0
+offset_right = 414.0
+offset_bottom = 50.0
+toggle_mode = true
+text = "Roguelike
+"
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -288.0
+offset_top = 99.0
+offset_right = 288.0
+offset_bottom = 187.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.941176, 0.917647, 0.121569, 1)
+theme_override_colors/caret_color = Color(0.996046, 0.99293, 0.664603, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_syqxf")
+text = "New Game"
+context_menu_enabled = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+empty_selection_clipboard_enabled = false
+
+[node name="StartButton" parent="." instance=ExtResource("2_a1bvw")]
+layout_mode = 1
+offset_left = -83.5
+offset_top = 211.0
+offset_right = 83.5
+offset_bottom = 271.0
+text = "Start"

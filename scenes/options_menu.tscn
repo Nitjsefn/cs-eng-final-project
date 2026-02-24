@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://tcu1iva2xkwp"]
+
+[ext_resource type="LabelSettings" uid="uid://d27w8lxfuk3r1" path="res://styles/title_label.tres" id="1_ijpji"]
+[ext_resource type="LabelSettings" uid="uid://cgypnt3ge8ano" path="res://styles/label.tres" id="2_hm4m4"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.5
+offset_top = -300.0
+offset_right = 95.5
+offset_bottom = -231.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Options"
+label_settings = ExtResource("1_ijpji")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioLabel" type="Label" parent="."]
+layout_mode = 2
+offset_left = 465.0
+offset_top = 112.0
+offset_right = 535.0
+offset_bottom = 147.0
+size_flags_horizontal = 4
+text = "Audio"
+label_settings = ExtResource("2_hm4m4")
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 2
+offset_left = 600.0
+offset_top = 120.0
+offset_right = 732.0
+offset_bottom = 136.0

@@ -1,0 +1,155 @@
+[gd_scene load_steps=7 format=3 uid="uid://dq3qvqxpcuia8"]
+
+[ext_resource type="Texture2D" uid="uid://bqtqe4385xupl" path="res://assets/crosshair.png" id="1_0ndaf"]
+[ext_resource type="Texture2D" uid="uid://bb0m12l6vxd6h" path="res://assets/saving_black.png" id="2_6eoes"]
+[ext_resource type="LabelSettings" uid="uid://cgypnt3ge8ano" path="res://styles/label.tres" id="3_qa633"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vqahh"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_3y76k"]
+font_color = Color(0.967019, 0.944572, 0.19679, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4sibx"]
+bg_color = Color(0.825061, 0.803238, 0.0242302, 0.905882)
+corner_radius_top_left = 8
+corner_radius_top_right = 15
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterControl" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="Sprite2D" parent="CenterControl"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_0ndaf")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 75.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_vqahh")
+text = "Move - WSAD
+Jump - Space
+Crouch - c
+Attack - LPM"
+label_settings = SubResource("LabelSettings_3y76k")
+autowrap_mode = 3
+
+[node name="SavingIconPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 504.0
+offset_top = -300.0
+offset_right = 552.0
+offset_bottom = -252.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4sibx")
+
+[node name="SavingIconControl" type="Control" parent="SavingIconPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SavingBlack" type="Sprite2D" parent="SavingIconPanel/SavingIconControl"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_6eoes")
+
+[node name="HPPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -80.0
+offset_right = 104.0
+offset_bottom = -16.0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="HPPanel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -17.5
+offset_right = 48.0
+offset_bottom = 17.5
+grow_vertical = 2
+text = "HP"
+label_settings = ExtResource("3_qa633")
+
+[node name="HPLabel" type="Label" parent="HPPanel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -17.5
+offset_right = -8.0
+offset_bottom = 17.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "1"
+label_settings = ExtResource("3_qa633")
+
+[node name="TimePanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_right = 74.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="TimePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.5
+offset_top = -11.5
+offset_right = 27.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "0:23:18"
+label_settings = ExtResource("3_qa633")
