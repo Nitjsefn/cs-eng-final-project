@@ -6,7 +6,7 @@ public partial class Bullet : Area3D, IDeflectable
     private Vector3 _velocity;
     private const double _speed = 40;
     private const int _damage = 1;
-    private const float _maxTravelDistance = 10;
+    private const float _maxTravelDistance = 1000;
     private const float _maxTravelDistanceSquared = _maxTravelDistance * _maxTravelDistance;
     private Vector3 _startPosition;
     private bool _harmfulToEnemies = false;
@@ -40,6 +40,17 @@ public partial class Bullet : Area3D, IDeflectable
         Transform3D transform = bullet.Transform;
         transform.Origin = position;
         transform.Basis = Godot.Basis.LookingAt(relTargetPos);
+        bullet.Transform = transform;
+        bullet._startPosition = position;
+        return bullet;
+    }
+
+    public static Bullet InstantiateSphereProjectile(Vector3 position, Vector3 velocity)
+    {
+        Bullet bullet = (Bullet)PreloadedScenes.SphereProjectileScene.Instantiate();
+        bullet._velocity = velocity;
+        Transform3D transform = bullet.Transform;
+        transform.Origin = position;
         bullet.Transform = transform;
         bullet._startPosition = position;
         return bullet;
