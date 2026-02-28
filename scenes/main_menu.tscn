@@ -61,7 +61,7 @@ offset_left = -216.0
 offset_top = 128.0
 offset_right = 214.0
 offset_bottom = 188.0
-text = "Credits"
+text = "Leaderboard"
 
 [node name="Button5" parent="." instance=ExtResource("1_l6cm7")]
 layout_mode = 1

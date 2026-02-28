@@ -1,0 +1,88 @@
+[gd_scene load_steps=5 format=3 uid="uid://bys42a74gdfva"]
+
+[ext_resource type="LabelSettings" uid="uid://d27w8lxfuk3r1" path="res://styles/title_label.tres" id="1_ep5rh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hprjd"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.941176, 0.917647, 0.121569, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ku3bi"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(0.941176, 0.917647, 0.121569, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5phy8"]
+bg_color = Color(0.941176, 0.917647, 0.121569, 1)
+corner_radius_top_left = 6
+corner_radius_bottom_left = 6
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -116.5
+offset_top = -36.0
+offset_right = 116.5
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Loading..."
+label_settings = ExtResource("1_ep5rh")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = 156.0
+offset_right = 400.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hprjd")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -384.0
+offset_top = 164.0
+offset_right = 384.0
+offset_bottom = 191.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.941176, 0.917647, 0.121569, 1)
+theme_override_constants/outline_size = 8
+theme_override_styles/background = SubResource("StyleBoxFlat_ku3bi")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5phy8")
+value = 28.0
+rounded = true

@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://tcu1iva2xkwp"]
+[gd_scene load_steps=4 format=3 uid="uid://tcu1iva2xkwp"]
 
 [ext_resource type="LabelSettings" uid="uid://d27w8lxfuk3r1" path="res://styles/title_label.tres" id="1_ijpji"]
 [ext_resource type="LabelSettings" uid="uid://cgypnt3ge8ano" path="res://styles/label.tres" id="2_hm4m4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijpji"]
+bg_color = Color(0.941176, 0.917647, 0.121569, 0.411765)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -31,18 +38,96 @@ vertical_alignment = 1
 
 [node name="AudioLabel" type="Label" parent="."]
 layout_mode = 2
-offset_left = 465.0
+offset_left = 472.0
 offset_top = 112.0
-offset_right = 535.0
+offset_right = 542.0
 offset_bottom = 147.0
 size_flags_horizontal = 4
 text = "Audio"
 label_settings = ExtResource("2_hm4m4")
 vertical_alignment = 1
 
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+offset_left = 576.0
+offset_top = 104.0
+offset_right = 808.0
+offset_bottom = 248.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ijpji")
+
 [node name="HSlider" type="HSlider" parent="."]
 layout_mode = 2
-offset_left = 600.0
+offset_left = 584.0
 offset_top = 120.0
-offset_right = 732.0
+offset_right = 716.0
 offset_bottom = 136.0
+value = 100.0
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 160.0
+offset_right = 536.0
+offset_bottom = 195.0
+text = "Display"
+label_settings = ExtResource("2_hm4m4")
+
+[node name="OptionButton" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 584.0
+offset_top = 160.0
+offset_right = 626.0
+offset_bottom = 191.0
+selected = 0
+item_count = 2
+popup/item_0/text = "0"
+popup/item_0/id = 0
+popup/item_1/text = "1"
+popup/item_1/id = 1
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 208.0
+offset_right = 542.0
+offset_bottom = 243.0
+text = "Resolution Scale"
+label_settings = ExtResource("2_hm4m4")
+
+[node name="HSlider2" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 584.0
+offset_top = 216.0
+offset_right = 716.0
+offset_bottom = 232.0
+max_value = 200.0
+value = 100.0
+allow_greater = true
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 728.0
+offset_top = 112.0
+offset_right = 796.562
+offset_bottom = 143.0
+text = "100"
+alignment = 1
+max_length = 3
+context_menu_enabled = false
+emoji_menu_enabled = false
+virtual_keyboard_enabled = false
+select_all_on_focus = true
+
+[node name="LineEdit2" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 728.0
+offset_top = 208.0
+offset_right = 796.562
+offset_bottom = 239.0
+text = "100"
+alignment = 1
+max_length = 3
+context_menu_enabled = false
+emoji_menu_enabled = false
+virtual_keyboard_enabled = false
+select_all_on_focus = true

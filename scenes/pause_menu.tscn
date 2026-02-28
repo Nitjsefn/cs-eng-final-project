@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwcf3alc1i1nl"]
+
+[ext_resource type="LabelSettings" uid="uid://d27w8lxfuk3r1" path="res://styles/title_label.tres" id="1_myx47"]
+[ext_resource type="PackedScene" uid="uid://b67k66ww3ynok" path="res://scenes/menu_button.tscn" id="2_kukqi"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -299.0
+offset_right = 88.0
+offset_bottom = -230.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Paused"
+label_settings = ExtResource("1_myx47")
+
+[node name="Button" parent="." instance=ExtResource("2_kukqi")]
+layout_mode = 1
+text = "Resume"
+
+[node name="Button2" parent="." instance=ExtResource("2_kukqi")]
+layout_mode = 1
+offset_top = -36.0
+offset_bottom = 24.0
+text = "Options"
+
+[node name="Button3" parent="." instance=ExtResource("2_kukqi")]
+layout_mode = 1
+offset_top = 44.0
+offset_bottom = 104.0
+text = "Quit"
